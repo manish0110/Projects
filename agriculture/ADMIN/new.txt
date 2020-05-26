@@ -1,0 +1,65 @@
+create table users (
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(100) NOT NULL,
+  email varchar(100) NOT NULL,
+  password varchar(100) NOT NULL
+);
+create table admin (
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(100) NOT NULL,
+  email varchar(100) NOT NULL,
+  password varchar(100) NOT NULL
+);
+
+create table plough(
+  plough_id int(11) NOT NULL AUTO_INCREMENT,
+  plough_name varchar(32),
+  tool_name varchar(32),
+  primary key(plough_id)
+);
+
+create table pesticide(
+  pest_id int(11) NOT NULL AUTO_INCREMENT,
+  pest_name varchar(32),
+  disease_name varchar(32),
+  primary key(pest_id)
+);
+
+create table fertilizer(
+  fert_id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(32),
+  primary key(fert_id)
+);
+
+create table crop(
+  crop_id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(32),
+  primary key(crop_id)
+);
+
+create table crop_fert(
+  id int(11) NOT NULL AUTO_INCREMENT,
+  crop_id int(11),
+  fert_id int(11),
+  primary key(id),
+  foreign key(crop_id)references crop(crop_id)on delete cascade,
+  foreign key(fert_id)references fertilizer(fert_id)on delete cascade
+);
+
+create table crop_pest(
+  id int(11) NOT NULL AUTO_INCREMENT,
+  crop_id int(11),
+  pest_id int(11),
+  primary key(id),
+  foreign key(crop_id)references crop(crop_id)on delete cascade,
+  foreign key(pest_id)references pesticide(pest_id)on delete cascade
+);
+
+create table crop_plough(
+  id int(11) NOT NULL AUTO_INCREMENT,
+  crop_id int(11),
+  plough_id int(11),
+  primary key(id),
+  foreign key(crop_id)references crop(crop_id)on delete cascade,
+  foreign key(plough_id)references plough(plough_id)on delete cascade
+);
